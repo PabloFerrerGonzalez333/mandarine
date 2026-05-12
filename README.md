@@ -1,83 +1,162 @@
 # mandarine
 
-Repositorio del TFG de Pablo Ferrer Gonzalez sobre deteccion de anomalias visuales con `anomalib`, conservado en dos capas:
+An anomaly detection project built around mandarin images, originally developed as a final degree thesis and later rebuilt as a modern, reproducible `anomalib` pipeline.
 
-- una capa historica que documenta el trabajo entregado hace 3 años;
-- una replica moderna en `Python 3.12` y `anomalib 2.4.1` para volver a entrenar y evaluar el caso de las mandarinas.
+This repository intentionally preserves both:
 
-## Que contiene el proyecto
+- a historical reconstruction of the original thesis work
+- a modern implementation in `Python 3.12` with `anomalib 2.4.1`
 
-El TFG original estudiaba deteccion de anomalias en imagenes industriales, comparaba modelos inspirados en `MVTec AD` y cerraba con un caso practico IoT basado en imagenes de mandarinas y una simulacion con `PYNQ-Z2`. La evidencia historica mas fuerte apunta a `anomalib==0.3.7`.
+## Why this repository exists
 
-La replica moderna no reutiliza el codigo antiguo de entrenamiento. En su lugar, levanta una estructura actual con `src/`, configs, pruebas, notebooks de reporte y artefactos reproducibles.
+The original project studied visual anomaly detection through `anomalib`, benchmarked several image-based methods, and closed with a small IoT-style mandarin inspection scenario inspired by `PYNQ-Z2`.
 
-## Estructura
+Three years later, the project was revisited and rebuilt with a cleaner engineering setup:
 
-- `data/`: datasets y muestras de inferencia.
-- `docs/`: memoria del TFG, presentacion y HTML exportados.
-- `legacy/`: material historico archivado, incluida la copia parcial antigua de `anomalib`.
-- `notebooks/`: notebooks historicos y dos notebooks modernos de reporte.
-- `src/mandarine/`: pipeline moderno para preparar splits, entrenar, evaluar, inferir y reportar.
-- `configs/modern/`: configuraciones YAML de dataset, modelos, benchmark y entrenamiento final.
-- `tests/`: comprobaciones ligeras de splits y configs.
-- `artifacts/modern/`: artefactos ligeros y publicables de la replica moderna.
+- `src/`-based package structure
+- deterministic dataset splits
+- benchmark scripts
+- final training and inference scripts
+- report notebooks and exported HTML artifacts
 
-## Datos
+The goal is not only to preserve the academic project, but to turn it into a public, readable, reproducible portfolio repository.
 
-La fuente canonica del experimento moderno es `data/mandarins_pynq_cropped`, con:
+## Highlights
 
-- `33` imagenes normales
-- `7` imagenes anomalas
+- Historical baseline traced back to `anomalib 0.3.7`
+- Modern pipeline built with `Python 3.12` and `anomalib 2.4.1`
+- Canonical mandarin dataset with normal and anomalous cropped images
+- Reproducible multi-seed benchmark
+- Final inference examples with visual anomaly outputs
+- Public-ready repository structure with lightweight tracked artifacts
 
-Tambien se conservan:
+## Quick Results
 
-- `data/mandarins_pynq_raw` para ejemplos cualitativos y contexto historico.
-- `data/mandarins_pynq_augmented` como legado, sin usar en el pipeline moderno para evitar leakage.
-- `data/webcam_inference_images` para demos de inferencia.
+### Modern benchmark
 
-## Capa historica
+Models benchmarked on `data/mandarins_pynq_cropped`:
 
-La reconstruccion historica queda pensada para consulta y para reejecucion puntual de notebooks:
+- `PatchCore`
+- `AnomalyDINO`
 
-- version historica de referencia: `anomalib 0.3.7`
-- entorno objetivo: `Python 3.8`
-- dependencias: `requirements-legacy.txt`
+Current leaderboard:
 
-La antigua carpeta `anomalib/` del repo se ha movido a `legacy/anomalib_snapshot/` para que la replica moderna use siempre el paquete instalado desde PyPI y no una copia parcial local.
+| Model | Mean AUROC | Mean AUPR | Mean F1 | Mean latency (ms) |
+| --- | ---: | ---: | ---: | ---: |
+| PatchCore | 0.9333 | 0.9398 | 0.8407 | 173.66 |
+| AnomalyDINO | 0.7867 | 0.8111 | 0.5516 | 106.28 |
 
-## Replica moderna
+Winner:
 
-La replica moderna usa:
+- `PatchCore`
+
+Final training summary on the locked `seed=42` setup:
+
+- `image_AUROC`: `0.9200`
+- `image_AUPR`: `0.9267`
+- `image_F1Score`: `0.8333`
+- `latency_ms`: `220.39`
+
+## Demo Outputs
+
+Modern inference artifacts are already included in the repository:
+
+- [Benchmark report HTML](docs/html/modern/modern_benchmark_report.html)
+- [Inference demo HTML](docs/html/modern/modern_inference_demo.html)
+- [Prediction table](artifacts/modern/predictions/folder_predictions.csv)
+
+Example visual outputs:
+
+| Normal prediction | Anomalous prediction |
+| --- | --- |
+| ![Normal mandarin prediction](artifacts/modern/predictions/visualizations/webcam_inference_0001.png) | ![Anomalous mandarin prediction](artifacts/modern/predictions/visualizations/webcam_inference_0002.png) |
+
+## Repository Structure
+
+```text
+.
+├── artifacts/modern/        # Public benchmark summaries, prediction tables, lightweight visuals
+├── configs/modern/          # Dataset, model, benchmark and final-train YAML configs
+├── data/                    # Mandarin datasets and inference samples
+├── docs/                    # Thesis PDFs, extracted text, reconstruction notes, exported HTML
+├── legacy/                  # Historical archived material, including the old anomalib snapshot
+├── notebooks/               # Historical notebooks + modern report notebooks
+├── notes/                   # Small auxiliary notes/configs kept for context
+├── src/mandarine/           # Modern Python package
+└── tests/                   # Lightweight tests for splits and configs
+```
+
+## Dataset
+
+The canonical dataset for the modern experiment is:
+
+- `data/mandarins_pynq_cropped`
+
+It contains:
+
+- `33` normal images
+- `7` anomalous images
+
+Other preserved data folders:
+
+- `data/mandarins_pynq_raw`: raw examples and historical context
+- `data/mandarins_pynq_augmented`: legacy-only material, not used in the modern pipeline
+- `data/webcam_inference_images`: inference demo images
+
+## Two Project Layers
+
+### 1. Historical layer
+
+The historical part of the repository exists for traceability and documentation.
+
+- Reference version: `anomalib 0.3.7`
+- Intended environment: `Python 3.8`
+- Dependency file: `requirements-legacy.txt`
+
+The old partial local `anomalib` copy was removed from the repository root and archived under:
+
+- [legacy/anomalib_snapshot](legacy/anomalib_snapshot)
+
+That keeps the history available without polluting imports in the modern pipeline.
+
+### 2. Modern layer
+
+The modern layer uses:
 
 - `Python 3.12`
 - `anomalib 2.4.1`
-- `PatchCore`, `EfficientAd` y `AnomalyDINO`
-- evaluacion a nivel de imagen con `image_AUROC`, `image_AUPR`, `image_F1` y latencia media por imagen
+- structured configs
+- deterministic train/val/test splits
+- scriptable benchmark, training, inference and reporting
 
-### Protocolo
+## Experimental Protocol
 
-- dataset base: `data/mandarins_pynq_cropped`
-- semillas fijas: `13`, `23`, `42`
-- split por semilla:
-  - normales: `23 train`, `5 val`, `5 test`
-  - anomalas: `2 val`, `5 test`
-- nunca se entrena con imagenes anomalas
-- las augmentations solo se aplican on-the-fly al train normal
-- la seleccion del ganador se hace por:
-  - mayor `mean image_AUROC`
-  - desempate por `mean image_AUPR`
-  - segundo desempate por menor latencia
+- Base dataset: `data/mandarins_pynq_cropped`
+- Fixed seeds: `13`, `23`, `42`
+- Per-seed split:
+  - normal images: `23` train, `5` val, `5` test
+  - anomalous images: `2` val, `5` test
+- No anomalous images are used during training
+- Augmentations are applied only on-the-fly to normal training images
+- Winner selection rule:
+  - highest mean `image_AUROC`
+  - tie-break on mean `image_AUPR`
+  - final tie-break on lower latency
 
-### Configuracion moderna
+## Installation
 
-- `configs/modern/dataset/mandarins_cropped.yaml`: fuente de datos, seeds y tamanos de split.
-- `configs/modern/models/*.yaml`: hiperparametros y `max_epochs` por modelo.
-- `configs/modern/benchmark_cpu.yaml`: benchmark CPU-first sobre los 3 modelos.
-- `configs/modern/final_train.yaml`: reentrenamiento final del ganador sobre la semilla `42`.
+### Modern environment
 
-## Instalacion
+```powershell
+py -3.12 -m venv .venv-modern
+.venv-modern\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-modern.txt
+```
 
-### Entorno historico
+The modern requirements install the local package in editable mode, so all `python -m mandarine...` commands work without manual `PYTHONPATH` setup.
+
+### Historical environment
 
 ```powershell
 py -3.8 -m venv .venv
@@ -87,123 +166,94 @@ python -m pip install -r requirements-legacy.txt
 python -m pip install anomalib==0.3.7 --no-deps
 ```
 
-### Entorno moderno
+## Modern Pipeline
 
-```powershell
-py -3.12 -m venv .venv-modern
-.venv-modern\Scripts\activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements-modern.txt
-```
-
-`requirements-modern.txt` instala tambien el paquete local en editable (`-e .`), asi que los comandos `python -m mandarine...` quedan disponibles sin tocar `PYTHONPATH`.
-
-## Flujo moderno
-
-### 1. Preparar los splits
+### 1. Prepare deterministic splits
 
 ```powershell
 python -m mandarine.data.prepare
 ```
 
-Genera los directorios derivados por semilla dentro de `artifacts/modern/splits/` y un `split_manifest.csv`.
-
-### 2. Ejecutar el benchmark
+### 2. Run the benchmark
 
 ```powershell
 python -m mandarine.experiments.benchmark
 ```
 
-Produce:
-
-- `artifacts/modern/benchmark/benchmark_runs.csv`
-- `artifacts/modern/benchmark/leaderboard.csv`
-- `artifacts/modern/benchmark/metrics_summary.json`
-- `artifacts/modern/benchmark/split_manifest.csv`
-
-Si quieres una pasada mas ligera en CPU, puedes filtrar modelos o seeds:
+Lighter CPU-only examples:
 
 ```powershell
 python -m mandarine.experiments.benchmark --models patchcore anomalydino
 python -m mandarine.experiments.benchmark --models patchcore --seeds 42
 ```
 
-### 3. Reentrenar el ganador
+### 3. Retrain the winning model
 
 ```powershell
 python -m mandarine.experiments.train_final
 ```
 
-Guarda el resumen final en `artifacts/modern/final_model/final_model_summary.json`.
-
-### 4. Inferencia sobre la carpeta de webcam
+### 4. Run folder inference
 
 ```powershell
 python -m mandarine.inference.predict_folder
 ```
 
-Genera tablas de prediccion en `artifacts/modern/predictions/`.
-
-### 5. Reporte y HTML
+### 5. Build reports and HTML
 
 ```powershell
 python -m mandarine.reporting.build_report
 ```
 
-Este paso:
+## Public Artifacts Kept in Git
 
-- genera figuras comparativas;
-- ejecuta los notebooks modernos;
-- exporta HTML a `docs/html/modern/`.
+To keep the repository public-friendly and lightweight, only compact and useful modern artifacts are tracked:
+
+- `artifacts/modern/benchmark/*.csv`
+- `artifacts/modern/benchmark/metrics_summary.json`
+- `artifacts/modern/benchmark/figures/*.png`
+- `artifacts/modern/final_model/final_model_summary.json`
+- `artifacts/modern/predictions/*.csv`
+- `artifacts/modern/predictions/*.json`
+- `artifacts/modern/predictions/visualizations/*.png`
+
+Heavy training directories, checkpoints, caches and duplicated generated images are intentionally ignored.
 
 ## Notebooks
 
-### Historicos
+### Historical notebooks
 
 - `notebooks/tfg_experiments.ipynb`
 - `notebooks/model_boosting_experiments.ipynb`
 - `notebooks/iot_orange_experiments.ipynb`
 
-Siguen siendo cuadernos de contexto y reconstruccion.
+### Modern notebooks
 
-### Modernos
+- `notebooks/modern_benchmark_report.ipynb`
+- `notebooks/modern_inference_demo.ipynb`
 
-- `notebooks/modern_benchmark_report.ipynb`: resume leaderboard, runs y criterio de seleccion del modelo ganador.
-- `notebooks/modern_inference_demo.ipynb`: resume el entrenamiento final y las predicciones sobre las imagenes de webcam.
+The modern notebooks are report-oriented: they read generated artifacts rather than training models directly.
 
-Los notebooks modernos leen artefactos ya generados; no entrenan ellos mismos.
-
-## Que se versiona de la replica moderna
-
-Para que el repositorio sea publicable y siga siendo ligero, se conservan solo artefactos de salida pequenos y utiles para inspeccion:
-
-- `artifacts/modern/benchmark/*.csv` y `metrics_summary.json`
-- `artifacts/modern/benchmark/figures/*.png`
-- `artifacts/modern/final_model/final_model_summary.json`
-- `artifacts/modern/predictions/*.csv`, `*.json` y `predictions/visualizations/*.png`
-
-Los directorios de entrenamiento, checkpoints, caches y copias repetidas de imagenes se regeneran al ejecutar el pipeline moderno y no se versionan.
-
-## Pruebas
+## Tests
 
 ```powershell
 pytest
 ```
 
-Las pruebas cubren:
+Current tests cover:
 
-- determinismo de splits
-- conteos esperados por seed
-- ausencia de anomalias en train
-- carga de configs y resolucion de rutas
+- deterministic split generation
+- expected split counts
+- no anomaly leakage into train
+- config loading and path resolution
 
-## Limitaciones conocidas
+## Known Limitations
 
-- `EfficientAd` descarga `Imagenette` y pesos auxiliares en el entorno moderno, por lo que es el modelo mas pesado de preparar en esta maquina.
-- El benchmark actual esta planteado para CPU porque esta maquina no expone GPU visible.
-- El dataset de mandarinas no tiene mascaras, asi que la evaluacion moderna se centra en clasificacion a nivel de imagen y no en segmentacion.
+- The current benchmark is CPU-first because no GPU is available in this machine context
+- `EfficientAd` is supported in the modern configuration but is heavier to prepare because it downloads auxiliary assets such as `Imagenette`
+- The mandarin dataset does not include segmentation masks, so evaluation is image-level rather than pixel-level
 
-## Documentacion base
+## Core Documentation
 
 - `docs/tfg_memoria.pdf`
 - `docs/tfg_memoria.full.txt`
@@ -211,6 +261,8 @@ Las pruebas cubren:
 - `docs/tfg_presentacion.full.txt`
 - `docs/reconstruction_notes.md`
 
-## Licencia
+## License
 
-El codigo del repositorio se publica bajo licencia `MIT`. Los documentos del TFG y materiales historicos se conservan como contexto academico del proyecto.
+This repository code is released under the [MIT License](LICENSE).
+
+The thesis PDFs and historical academic materials are preserved as project context.
