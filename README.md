@@ -63,6 +63,7 @@ Modern inference artifacts are already included in the repository:
 
 - [Benchmark report HTML](docs/html/modern/modern_benchmark_report.html)
 - [Inference demo HTML](docs/html/modern/modern_inference_demo.html)
+- [Presentation landing page](docs/index.html)
 - [Prediction table](artifacts/modern/predictions/folder_predictions.csv)
 
 Example visual outputs:
