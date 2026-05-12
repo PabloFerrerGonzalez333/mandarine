@@ -1,0 +1,16 @@
+dataset_config: configs/modern/dataset/mandarins_cropped.yaml
+model_configs:
+  - configs/modern/models/patchcore.yaml
+  - configs/modern/models/efficientad.yaml
+  - configs/modern/models/anomalydino.yaml
+output_root: artifacts/modern/benchmark
+reports_root: docs/html/modern
+runner:
+  accelerator: cpu
+trainer:
+  accelerator: cpu
+  devices: 1
+  deterministic: true
+  precision: 32
+  enable_progress_bar: true
+  log_every_n_steps: 1

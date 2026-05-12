@@ -1,0 +1,97 @@
+{
+  "dataset_config": "configs\\modern\\dataset\\mandarins_cropped.yaml",
+  "runs": [
+    {
+      "error_message": null,
+      "image_aupr": 1.0,
+      "latency_ms": 176.98989999480546,
+      "metrics": {
+        "image_AUROC": 1.0,
+        "image_F1Score": 0.8888888955116272
+      },
+      "model": "patchcore",
+      "output_dir": "artifacts\\modern\\benchmark\\patchcore_seed_13",
+      "seed": 13,
+      "status": "ok"
+    },
+    {
+      "error_message": null,
+      "image_aupr": 0.8,
+      "latency_ms": 107.14404999744147,
+      "metrics": {
+        "image_AUROC": 0.800000011920929,
+        "image_F1Score": 0.5714285969734192
+      },
+      "model": "anomalydino",
+      "output_dir": "artifacts\\modern\\benchmark\\anomalydino_seed_13",
+      "seed": 13,
+      "status": "ok"
+    },
+    {
+      "error_message": null,
+      "image_aupr": 0.8766666666666667,
+      "latency_ms": 171.59989000065252,
+      "metrics": {
+        "image_AUROC": 0.8799999952316284,
+        "image_F1Score": 0.800000011920929
+      },
+      "model": "patchcore",
+      "output_dir": "artifacts\\modern\\benchmark\\patchcore_seed_23",
+      "seed": 23,
+      "status": "ok"
+    },
+    {
+      "error_message": null,
+      "image_aupr": 0.8,
+      "latency_ms": 107.99409999744967,
+      "metrics": {
+        "image_AUROC": 0.800000011920929,
+        "image_F1Score": 0.3333333432674408
+      },
+      "model": "anomalydino",
+      "output_dir": "artifacts\\modern\\benchmark\\anomalydino_seed_23",
+      "seed": 23,
+      "status": "ok"
+    },
+    {
+      "error_message": null,
+      "image_aupr": 0.9428571428571428,
+      "latency_ms": 172.40293000359088,
+      "metrics": {
+        "image_AUROC": 0.9200000762939453,
+        "image_F1Score": 0.8333333134651184
+      },
+      "model": "patchcore",
+      "output_dir": "artifacts\\modern\\benchmark\\patchcore_seed_42",
+      "seed": 42,
+      "status": "ok"
+    },
+    {
+      "error_message": null,
+      "image_aupr": 0.8333333333333333,
+      "latency_ms": 103.7015000008978,
+      "metrics": {
+        "image_AUROC": 0.7599999904632568,
+        "image_F1Score": 0.75
+      },
+      "model": "anomalydino",
+      "output_dir": "artifacts\\modern\\benchmark\\anomalydino_seed_42",
+      "seed": 42,
+      "status": "ok"
+    }
+  ],
+  "split_manifest": "artifacts\\modern\\benchmark\\split_manifest.csv",
+  "winner": {
+    "completed_runs": 3,
+    "mean_image_AUPR": 0.9398412698412698,
+    "mean_image_AUROC": 0.9333333571751913,
+    "mean_image_F1": 0.8407407402992249,
+    "mean_latency_ms": 173.66423999968296,
+    "model": "patchcore",
+    "std_image_AUPR": 0.05039576301842367,
+    "std_image_AUROC": 0.049888760059395805,
+    "std_image_F1": 0.03666479588312797,
+    "std_latency_ms": 2.374339081926935
+  }
+}
+

@@ -1,0 +1,11 @@
+name: anomalydino
+model_key: anomalydino
+description: Current DINO-based feature model available in anomalib 2.x.
+params:
+  encoder_name: dinov2_vit_small_14
+  num_neighbours: 1
+  masking: false
+  coreset_subsampling: false
+  sampling_ratio: 0.1
+trainer:
+  max_epochs: 1

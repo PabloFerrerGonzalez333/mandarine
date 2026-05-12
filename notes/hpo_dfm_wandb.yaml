@@ -1,0 +1,12 @@
+program: tools/hpo/sweep.py
+method: bayes
+metric:
+  name: image_AUPR
+  goal: maximize
+parameters:
+  model.backbone:
+    values: [resnet18, efficientnet_l2]
+  model.score_type:
+    values: [fre, nll]
+  model.pooling_kernel_size:
+    values: [2, 4, 6]

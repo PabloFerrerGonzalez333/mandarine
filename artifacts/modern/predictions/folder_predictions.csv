@@ -1,0 +1,5 @@
+image_path,prediction_type,pred_score,pred_label,visualization_path
+data\webcam_inference_images\webcam_inference_0001.png,list,0.3831523656845093,False,artifacts\modern\final_model\Patchcore\latest\images\webcam_inference_images\webcam_inference_0001.png
+data\webcam_inference_images\webcam_inference_0002.png,list,1.0,True,artifacts\modern\final_model\Patchcore\latest\images\webcam_inference_images\webcam_inference_0002.png
+
+

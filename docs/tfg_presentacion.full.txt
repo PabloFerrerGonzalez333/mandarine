@@ -1,0 +1,469 @@
+--- PAGE 1 ---
+1
+Autor: Pablo Ferrer González
+Tutores: Emilio Soria Olivas y Joan Vila Francés
+Detección de anomalías en imágenes, estudio del 
+problema y aplicación de la librería Anomalib
+
+--- PAGE 2 ---
+● Grandes avances debido a la aparición de 
+las redes neuronales convolucionales.
+● La detección de anomalías en imágenes 
+es un problema específico en aprendizaje 
+automático.
+● El problema presenta desafíos que 
+requieren de modelos específicos.
+● Se está trabajando en:
+○ Marco teórico
+○ Conjuntos de datos
+○ Modelos 
+Motivación Objetivos
+● Delimitar los principales retos.
+● Establecer un marco teórico introductorio.
+● Identificar las bases comunes de los 
+modelos más avanzados.
+● Valorar las métricas relevantes.
+● Estudiar los modelos en un conjunto de 
+datos que permita comparabilidad.
+● Explorar las técnicas de mejora de 
+modelos más comunes.
+● Comprobar su viabilidad en un caso real 
+mediante simulación.
+Trabajo de Final de Grado
+2
+
+--- PAGE 3 ---
+Introducción
+Tipos de aprendizaje y 
+aplicaciones de detección de 
+anomalías.
+04.
+05.
+06.
+01.
+02.
+03.
+Estado del arte
+Retos, evolución de las técnicas y 
+estudio de modelos.
+Las métricas y los datos
+Estudio de las métricas 
+relevantes y características del 
+conjunto de datos MVTec-AD.
+Resultados y mejoras
+Evaluación de los 
+modelos y técnicas para 
+mejorar los resultados.
+Un caso real
+Aplicación de un modelo 
+simulando un escenario 
+realista.
+Consideraciones finales
+Enumeración de 
+conclusiones.
+3
+
+--- PAGE 4 ---
+1.Introducción
+Tipos de aprendizaje y 
+aplicaciones de detección de 
+anomalías.
+4
+
+--- PAGE 5 ---
+● Supervisado 
+entrenado en un conjunto de datos etiquetados
+● No supervisado
+entrenado en un conjunto de datos no etiquetados
+● Semi-supervisado
+entrenado en un conjunto de datos parcialmente etiquetados
+Tipos de aprendizaje
+- Label propagation
+etiqueta en base a sus similitudes 
+locales y la estructura global de los 
+datos.
+- Active Learning
+selecciona las más informativas para 
+ser etiquetadas por un humano.
+- Weak supervision
+etiqueta utilizando información de una 
+o más fuentes y reglas heurísticas.
+- Transfer Learning
+utiliza un modelo ya entrenado en una 
+tarea similar para etiquetar casos no 
+etiquetados.
+5
+
+--- PAGE 6 ---
+Aplicaciones
+Imagenes
+Otros datos
+6
+
+--- PAGE 7 ---
+2.Estado del arte
+Retos, evolución de las técnicas 
+y estudio de modelos.
+7
+
+--- PAGE 8 ---
+Retos
+8
+
+--- PAGE 9 ---
+1.
+2.
+3.
+4.
+Desbalanceado
+Anotación
+Complejidad
+La efectividad de los modelos está limitada por la 
+cantidad y distribución de los datos
+Es más fácil conseguir muestras de casos no 
+defectuosos.
+Es imposible especificar los distintos tipos de 
+anomalías esperadas incluso para un único problema.
+Delicadeza
+Los modelos son especialmente sensibles a la 
+presencia del ruido.
+Retos
+9
+
+--- PAGE 10 ---
+Evolución
+10
+
+--- PAGE 11 ---
+Cluster models
+OCSVM y SVDD
+Tree models
+pyOD
+11
+
+--- PAGE 12 ---
+Receta de la revolución del Deep Learning en 2012
+12
+
+--- PAGE 13 ---
+Modelos de Anomalib
+13
+
+--- PAGE 14 ---
+CNN
+Autoencoder
+Tree modelsGAN
+Anomalib
+14
+
+--- PAGE 15 ---
+Aspectos comunes
+● Los algoritmos utilizan una red neuronal pre-entrenada para extraer y procesar 
+las características de una imagen. 
+● Dividen la imagen en parches y procesan cada uno de ellos por separado, 
+valiéndose de técnicas para la representación de sus características.
+● Se utilizan técnicas de reducción de la dimensionalidad y submuestreo en el 
+proceso.
+● Se establece algún método para evaluar la probabilidad de anomalía tanto a 
+nivel de cada píxel individual como de la imagen en sí misma.
+15
+
+--- PAGE 16 ---
+Diferencias
+● Patchcore: greedy coreset.
+● Fastflow: flujo normalizador 2D.
+● Padim: concatenación aleatoria 
+de capas.
+● Cflow-Ad: flujo normalizador.
+● STFPM: red profesor-estudiante.
+● DFM: gaussian mixture models.
+● DFKDE: reducción mediante PCA
+16
+
+--- PAGE 17 ---
+3. Las métricas y los datos
+Estudio de las métricas 
+relevantes y características del 
+conjunto de datos MVTec-AD.
+17
+
+--- PAGE 18 ---
+Métricas relevantes
+18
+
+--- PAGE 19 ---
+Métricas relevantes
+True Positive Rate
+False Positive Rate
+Positive Predictive Value
+19
+
+--- PAGE 20 ---
+Métricas relevantes
+Combinando métricas
+20
+
+--- PAGE 21 ---
+Métricas relevantes
+● Umbral máximo-píxel: selecciona como umbral la puntuación de anomalía 
+máxima que se haya dado durante la fase de entrenamiento. 
+●  Umbral p-Cuantil: dada la distribución de todas las puntuaciones de anomalía 
+establece la proporción de píxeles que se clasifican como anómalos.
+● Umbral k-sigma: calcula la media y desviación típica de todas las puntuaciones 
+de los pixeles durante la fase de inferencia y establece el umbral como 
+● Umbral máxima-área: añade la condición de un valor de área mínima que han 
+de superar los píxeles vecinos clasificados cómo anómalos.
+Necesidad de un umbral para la inferencia
+21
+
+--- PAGE 22 ---
+El conjunto de datos 
+MVTec-AD
+22
+
+--- PAGE 23 ---
+MVTec-AD
+● Intenta simular escenarios reales en el sector de la producción.
+● Imágenes de alta calidad con poco ruido y distorsión.
+● 10 categorías de objetos (botellas, transistores, pastillas, etc) y 5 categorías de 
+texturas (tejidos, materiales, etc)
+● Cada categoría presenta distintos tipos de anomalías
+● 5354 imágenes de 900x900 pixeles utilizando con tres canales RGB
+● Las imágenes anómalas son aproximadamente el 20 %  y un 2.7 % de los píxeles 
+totales son anómalos.
+23
+
+--- PAGE 24 ---
+24
+
+--- PAGE 25 ---
+● Train set: 242 
+● Test set: 31     84 
+● 5 tipos 
+● 1.5 regiones 
+25
+
+--- PAGE 26 ---
+4. Resultados y mejoras
+Evaluación de los modelos y 
+técnicas para mejorar los 
+resultados.
+26
+
+--- PAGE 27 ---
+Resultados
+27
+
+--- PAGE 28 ---
+Modelo AUC-ROC
+CBLOF 0.7598
+LOF 0.7419
+XGBOD 0.7417
+XGB 0.7432
+CatB 0.8081
+Modelo AUC-ROC
+CFlow 0.9620
+DFM 0.9430
+DFKDE 0.7740
+FastFlow 0.8968
+PatchCore 0.9800
+PaDiM 0.9500
+STFPM 0.8081
+Media: 0.7589
+Media: 0.9117
+Resultados
+Datos: MVTec-AD
+Categorías: todas
+Nota: no se ha ponderado 
+por tamaño del grupo en el 
+cálculo de la media.
+28
+
+--- PAGE 29 ---
+Data Augmentation
+29
+
+--- PAGE 30 ---
+Data Augmentation
+● Técnica que consiste en generar nuevas imágenes a partir de las 
+existentes mediante la aplicación de transformaciones. 
+● Puede mejorar la capacidad de generalizar a datos desconocidos 
+y a prevenir el sobreajuste.
+● Al aplicar la técnica debemos evitar distorsiones o alteraciones 
+significativas en los datos originales.
+● Nosotros hemos aplicado:
+○ Inversión horizontal y vertical
+○ Cambio de iluminación
+○ Rotación
+30
+
+--- PAGE 31 ---
+Normales sin DA
+Anómalas sin DA
+Ambas tras DA
+31
+
+--- PAGE 32 ---
+Data Augmentation
+Datos: naranjas
+Categorías: naranjas
+Modelo: PaDiM
+ ResNet-18 ResNet-50
+No 
+augmentation 0.63 0.59
+Si 
+augmentation 0.61 0.72
+(Métrica AUC-PR)
+32
+
+--- PAGE 33 ---
+Transfer Learning
+33
+
+--- PAGE 34 ---
+Modelo ResNet-18 ResNet-50 Cambio %
+DFM 0.936 0.943 0.75
+DFKDE 0.762 0.774 1.55
+PatchCore 0.973 0.980 0.71
+PaDiM 0.891 0.950 6.21
+STFPM 0.893 0.876 -1.94
+Transfer Learning
+Datos: MVTec-AD
+Categorías: todas
+(Métrica AUC-ROC)
+● Consiste en utilizar una red neuronal 
+ya entrenada en una tarea específica 
+para resolver una nueva tarea 
+relacionada.
+● Se consigue reducir la cantidad de 
+datos y la complejidad computacional 
+necesarios para resolver la nueva 
+tarea.
+34
+
+--- PAGE 35 ---
+Ajuste de 
+hiperparámetros
+35
+
+--- PAGE 36 ---
+Ajuste de 
+hiperparámetros
+Datos: MVTec-AD
+Categorías: todas
+Modelo: DFM
+(Métrica AUC-PR)
+● Los hiperparámetros son parámetros que no son 
+aprendidos directamente a partir de los datos, 
+sino fijados previamente.
+● El ajuste hiperparametros se realiza mediante un 
+proceso de prueba y error, evaluándose diferentes 
+combinaciones de valores.
+● Puede mejorar la capacidad de generalizar a 
+datos desconocidos y a prevenir el sobreajuste.
+36
+ Pooling 
+2x2
+Pooling 
+4x4
+Pooling 
+6x6
+Modelado 
+Gaussiano 0.7057 0.6932 0.6919
+Reconstruc
+ción PCA 0.9074 0.8956 0.8871
+
+--- PAGE 37 ---
+5. Un caso real
+Aplicación de un modelo 
+simulando un escenario 
+realista.
+37
+
+--- PAGE 38 ---
+Introducción
+Finalidad
+ResNet-50 y PaDiM, 
+con data 
+augmentation.
+Modelo
+De componentes 
+implicados 
+(sensores, 
+modelo, 
+comunicación)
+Gestión
+Simular una 
+cadena de 
+producción de 
+naranjas
+Proceso
+Detectar 
+naranjas 
+anómalas a 
+tiempo real
+38
+
+--- PAGE 39 ---
+Recursos Físicos
+39
+
+--- PAGE 40 ---
+Puesta a punto
+Entrenamiento
+Se realiza offline 
+dada la 
+exigencia 
+computacional
+Carga
+Antes de 
+inicializar el 
+proceso 
+simulado
+Inferencia
+Se realiza a 
+tiempo real y 
+los resultados 
+se monitorizan
+40
+
+--- PAGE 41 ---
+41
+
+--- PAGE 42 ---
+42
+
+--- PAGE 43 ---
+Resultados
+43
+
+--- PAGE 44 ---
+6. Consideraciones finales
+Conclusiones.
+44
+
+--- PAGE 45 ---
+● Se establece un marco teórico básico sobre los retos y modelos, que sirve de punto 
+de partida para el estudio del problema.
+○ Por ejemplo: el encaje de los modelos OCSVM, SVDD, CNNs, Autoencoders…
+● Los modelos de Anomalib, pese a ser muy distintos suelen presentar aspectos 
+comunes como el uso de una red preentrenada, la división de la imagen en 
+parches, la reducción de la dimensionalidad y el submuestreo
+● Respecto a las métricas relevantes, hemos visto las ventajas de la curva PR, o las 
+métricas PRO y F1 score.
+● Hemos comprobado que la cantidad y calidad de los datos en el conjunto 
+MVTec-AD permite evaluar y comparar modelos.
+● Tanto Data Augmentation, como Transfer Learning y ajuste de hiperparámetros 
+presentan mejoras lo suficientemente significativas como para ser tenidas en 
+cuenta.
+●  En cuanto a la viabilidad, es posible con la versión actual de Anomalib y la parte de 
+inferencia en el modelo tarda aproximadamente un segundo.
+Conclusiones
+45
+
+--- PAGE 46 ---
+Autor: Pablo Ferrer González
+Tutores: Emilio Soria Olivas y Joan Vila Francés
+Detección de anomalías en imágenes, estudio del 
+problema y aplicación de la librería Anomalib
+46

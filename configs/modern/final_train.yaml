@@ -1,0 +1,12 @@
+benchmark_config: configs/modern/benchmark_cpu.yaml
+seed: 42
+output_root: artifacts/modern/final_model
+predictions_root: artifacts/modern/predictions
+reports_root: docs/html/modern
+trainer:
+  accelerator: cpu
+  devices: 1
+  deterministic: true
+  precision: 32
+  enable_progress_bar: true
+  log_every_n_steps: 1

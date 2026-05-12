@@ -1,0 +1,19 @@
+{
+  "rows": [
+    {
+      "image_path": "data\\webcam_inference_images\\webcam_inference_0001.png",
+      "pred_label": false,
+      "pred_score": 0.3831523656845093,
+      "prediction_type": "list",
+      "visualization_path": "artifacts\\modern\\predictions\\visualizations\\webcam_inference_0001.png"
+    },
+    {
+      "image_path": "data\\webcam_inference_images\\webcam_inference_0002.png",
+      "pred_label": true,
+      "pred_score": 1.0,
+      "prediction_type": "list",
+      "visualization_path": "artifacts\\modern\\predictions\\visualizations\\webcam_inference_0002.png"
+    }
+  ]
+}
+

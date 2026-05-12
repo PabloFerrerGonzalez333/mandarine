@@ -1,0 +1,2 @@
+# Default environment for the modern pipeline.
+-r requirements-modern.txt

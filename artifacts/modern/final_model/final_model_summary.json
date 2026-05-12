@@ -1,0 +1,26 @@
+{
+  "checkpoint_path": "not_versioned\\model.ckpt",
+  "metrics": {
+    "image_AUPR": 0.9266666666666666,
+    "image_AUROC": 0.9199999570846558,
+    "image_F1Score": 0.8333333134651184,
+    "latency_ms": 220.38544999668375
+  },
+  "prediction_samples": [
+    {
+      "image_path": "data\\webcam_inference_images\\webcam_inference_0001.png",
+      "pred_label": false,
+      "pred_score": 0.41225335001945496,
+      "prediction_type": "list"
+    },
+    {
+      "image_path": "data\\webcam_inference_images\\webcam_inference_0002.png",
+      "pred_label": true,
+      "pred_score": 1.0,
+      "prediction_type": "list"
+    }
+  ],
+  "seed": 42,
+  "winner_model": "patchcore"
+}
+

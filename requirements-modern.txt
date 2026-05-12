@@ -1,0 +1,23 @@
+# Modern environment for the 2026 mandarine replication.
+# Recommended interpreter: Python 3.12.x
+
+anomalib==2.4.1
+lightning==2.6.1
+torch==2.8.0
+torchvision==0.23.0
+
+numpy==2.4.4
+pandas==3.0.3
+scikit-learn==1.8.0
+matplotlib==3.10.9
+Pillow==12.2.0
+PyYAML==6.0.3
+
+ipykernel==7.1.0
+nbformat==5.10.4
+nbconvert==7.16.6
+jupyterlab==4.4.10
+
+pytest==8.4.2
+
+-e .

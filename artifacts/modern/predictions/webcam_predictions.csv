@@ -1,0 +1,5 @@
+image_path,prediction_type,pred_score,pred_label
+data\webcam_inference_images\webcam_inference_0001.png,list,0.41225335001945496,False
+data\webcam_inference_images\webcam_inference_0002.png,list,1.0,True
+
+
