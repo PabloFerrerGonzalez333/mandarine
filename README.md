@@ -1,4 +1,4 @@
-# mandarine
+#  :orange_circle:
 
 An anomaly detection project built around mandarin images, originally developed as a final degree thesis and later rebuilt as a modern, reproducible `anomalib` pipeline.
 
